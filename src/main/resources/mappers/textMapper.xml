@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.preparationtools.model.mapper.TextMapper">
+
+
+
+
+	<insert id="insertExhibition" useGeneratedKeys="true" keyProperty="exhibitionNo" keyColumn="exhibition_no"> 
+		INSERT INTO EXHIBITION
+			VALUES (
+				seq_exhibition_no.nextval,
+				#{title},
+				#{place},
+				#{main_img},
+				#{date},
+				#{codename},
+				#{is_free},
+				DEFAULT
+			)
+	</insert>
+	
+	<insert id="insertExhibitionDetail">
+		INSERT INTO EXHIBITION_DETAIL
+			VALUES (
+				#{exhibitionNo},
+				#{use_fee},
+				#{strtdate},
+				#{end_date},
+				#{detail_img_url},
+				#{org_link}
+			)
+	</insert>
+	
+	<insert id="insertExMap">
+		INSERT INTO EX_MAP
+			VALUES (
+				#{exhibitionNo},
+				#{guname},
+				#{lot},
+				#{lat}
+			)
+	</insert>
+	
+</mapper>
