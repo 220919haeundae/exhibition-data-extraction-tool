@@ -18,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class FilterService {
 	
-	private static HashMap<String, String> filterMap = null;
+	private HashMap<String, String> filterMap = null;
+	
+	Set<String> filterSet = null;
 	
 	private final TextMapper mapper;
 	
@@ -26,20 +28,10 @@ public class FilterService {
 		
 		ArrayList<JsonDto> filteringResult = new ArrayList<>();
         
-        Set<String> filter = new HashSet<>();
-        filter.add("축제-문화/예술");
-        //filter.add("교육/체험");
-        filter.add("축제-자연/경관");
-        filter.add("축제-기타");
-        filter.add("축제-전통/역사");
-        filter.add("축제-시민화합");
-        filter.add("전시/미술");
-        //filter.add("기타");
-        
         Iterator<JsonDto> iterator = list.iterator();
         while(iterator.hasNext()) {
         	JsonDto info = iterator.next();
-        	if(filter.contains(info.getCodename())) {
+        	if(filterSet.contains(info.getCodename())) {
         		filteringResult.add(info);
         	}
         }
@@ -47,18 +39,27 @@ public class FilterService {
         return filteringResult;
 	}
 	
-	public void initFilterMap() {
+	public void initFilter() {
 		this.filterMap = new HashMap<>();
+		this.filterSet = new HashSet<>();
 		
 		List<JsonDto> filterList = mapper.getFilterList();
 		
 		for (JsonDto dto : filterList) {
-	        filterMap.put(dto.getTitle()+dto.getMain_img(), dto.getDate());
+			
+	        filterMap.put(dto.getTitle()+dto.getMainImg(), dto.getDate());
 	    }
+		filterSet.add("축제-문화/예술");
+		filterSet.add("축제-자연/경관");
+		filterSet.add("축제-기타");
+		filterSet.add("축제-전통/역사");
+		filterSet.add("축제-시민화합");
+		filterSet.add("전시/미술");
 	}
 
 	public void removeFilter() {
 		this.filterMap = null;
+		this.filterSet = null;
 	}
 	
 	
@@ -66,10 +67,15 @@ public class FilterService {
 	    
 	    Iterator<JsonDto> iterator = list.iterator();
 	    while (iterator.hasNext()) {
+	    	
 	        JsonDto dto = iterator.next();
-	        String key = dto.getTitle() + dto.getMain_img();
+	        
+	        String key = dto.getTitle() + dto.getMainImg();
+	        
 	        if(filterMap.get(key) != null) {
+	        	
 	        	if(filterMap.get(key).equals(dto.getDate())) {
+	        		
 	        		iterator.remove();
 	        	};
 	        }

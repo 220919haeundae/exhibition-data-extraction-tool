@@ -29,12 +29,12 @@ public class DataExtractionService {
     	int startIndex = 1;
     	int endIndex = 100;
     	
-    	filter.initFilterMap();
+    	filter.initFilter();
     	
     	for(int i=0; i < 50; i++) {
     		try {
-            	
-        		String data = api.cultureAPI(String.valueOf(startIndex), String.valueOf(endIndex));
+        		String data = api.cultureAPI(String.valueOf(startIndex)
+        									, String.valueOf(endIndex));
         		
         		list = jService.originExhibitionList(data);
         		
@@ -46,17 +46,14 @@ public class DataExtractionService {
             	
                 System.out.println("json 데이터 : " + list.size());
                 
-                
             } catch (Exception e) {
                 e.printStackTrace();
-                filter.initFilterMap();
+                filter.initFilter();
             }
     		startIndex += 100;
             endIndex += 100;
     	}
  
-        jService.initCount();
         filter.removeFilter();
     }
-
 }

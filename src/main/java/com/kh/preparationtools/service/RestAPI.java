@@ -14,7 +14,7 @@ public class RestAPI {
 	
 	public String cultureAPI(String start, String end) throws IOException {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088"); /*URL*/
-		urlBuilder.append("/" +  URLEncoder.encode("key","UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
+		urlBuilder.append("/" +  URLEncoder.encode("Key","UTF-8") ); /*인증키 (sample사용시에는 호출시 제한됩니다.)*/
 		urlBuilder.append("/" +  URLEncoder.encode("json","UTF-8") ); /*요청파일타입 (xml,xmlf,xls,json) */
 		urlBuilder.append("/" + URLEncoder.encode("culturalEventInfo","UTF-8")); /*서비스명 (대소문자 구분 필수입니다.)*/
 		urlBuilder.append("/" + URLEncoder.encode(start,"UTF-8")); /*요청시작위치 (sample인증키 사용시 5이내 숫자)*/

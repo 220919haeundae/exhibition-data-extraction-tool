@@ -36,8 +36,6 @@ public class JsonToQueryService {
 	
 	private final TextMapper mapper;
 	
-	private static int count;
-	
 	public int jsonToQuery(JsonDto jd) {
 		int result = 0;
 		result = mapper.insertExhibition(jd);
@@ -60,18 +58,19 @@ public class JsonToQueryService {
 	 * @return 전시/행사 정보 관련 json 문자열을 가공 및 1차 필터링 후 반환하는 DTO 리스트
 	 */
 	public List<JsonDto> originExhibitionList(String str) {
-
 	    JSONObject jsonObject = new JSONObject(str);
-
-	    JSONObject culturalEventInfo = jsonObject.getJSONObject("culturalEventInfo");
-
+	    
+	    JSONObject culturalEventInfo = jsonObject
+	    							.getJSONObject("culturalEventInfo");
+	    
 	    JSONArray row = culturalEventInfo.getJSONArray("row");
 
 	    String strrow = row.toString();
 	    
 	    Gson gson = new Gson();
 	    
-	    list = gson.fromJson(strrow, new TypeToken<ArrayList<JsonDto>>() {}.getType());
+	    list = gson.fromJson(strrow
+	    		, new TypeToken<ArrayList<JsonDto>>() {}.getType());
 	    
 	    return list;
 	}
@@ -100,17 +99,17 @@ public class JsonToQueryService {
     
     
     public void processListData(List<JsonDto> list) {
-        for (int i = count; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             JsonDto data = list.get(i);
 
-            log.info("{}번째 데이터 =====> {}", i + 1, data.getHmpg_addr());
+            log.info("{}번째 데이터 =====> {}", i + 1, data.getHmpgAddr());
 
             // 상세 이미지 URL 추출
-            data.setDetail_img_url(extimg.imgExtract(data.getHmpg_addr()));
+            data.setDetailImgUrl(extimg.imgExtract(data.getHmpgAddr()));
 
             // 이용 요금 정보 처리
-            if (data.getUse_fee() != null) {
-                data.setUse_fee(parseUseFee(data.getUse_fee(), data.getIs_free()));
+            if (data.getUseFee() != null) {
+                data.setUseFee(parseUseFee(data.getUseFee(), data.getIsFree()));
             }
 
             // 데이터 저장
@@ -121,9 +120,5 @@ public class JsonToQueryService {
     private void saveData(JsonDto data) {
         jsonToQuery(data);
     }
-
-	public void initCount() {
-		count = 0;
-	}
 
 }

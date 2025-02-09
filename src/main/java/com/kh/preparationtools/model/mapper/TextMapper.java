@@ -20,7 +20,7 @@ public interface TextMapper {
 		
 	    @Select("SELECT TITLE, EX_DATE, MAIN_IMG FROM EXHIBITION")
 	    @Results({
-	        @Result(property = "main_img", column = "MAIN_IMG"),
+	        @Result(property = "mainImg", column = "MAIN_IMG"),
 	        @Result(property = "date", column = "EX_DATE"),
 	        @Result(property = "title", column = "TITLE")
 	    })

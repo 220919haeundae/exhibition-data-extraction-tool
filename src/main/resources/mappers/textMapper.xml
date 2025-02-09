@@ -13,10 +13,10 @@
 				seq_exhibition_no.nextval,
 				#{title},
 				#{place},
-				#{main_img},
+				#{mainImg},
 				#{date},
 				#{codename},
-				#{is_free},
+				#{isFree},
 				DEFAULT
 			)
 	</insert>
@@ -25,11 +25,11 @@
 		INSERT INTO EXHIBITION_DETAIL
 			VALUES (
 				#{exhibitionNo},
-				#{use_fee},
-				#{strtdate},
-				#{end_date},
-				#{detail_img_url},
-				#{org_link}
+				#{useFee},
+				#{strtDate},
+				#{endDate},
+				#{detailImgUrl},
+				#{orgLink}
 			)
 	</insert>
 	
